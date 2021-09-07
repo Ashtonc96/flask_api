@@ -32,11 +32,21 @@ pipeline {
                 }
             }
         }
-        // Run the test using the built docker image - only for testing
-        stage('Deploy') {
-            steps {
+        //Deploy the Docker image to DockerHub
+        stage('Deploy image') {
+            steps{
                 script {
-                    sh "docker run --tty -p 5000:5000 ${env.registry}:${env.BUILD_NUMBER}"
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                    echo "docker rmi ${env.registry}:${env.BUILD_NUMBER}"
+                }
+            }
+        }
+        stage('Remove unused docker image') {
+            steps{
+                script{
+                    sh "docker rmi ${env.registry}:${env.BUILD_NUMBER}"
                 }
             }
         }
