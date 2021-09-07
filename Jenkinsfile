@@ -36,7 +36,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh "docker run --tty -d -p 5000:5000 ${env.registry}:${env.BUILD_NUMBER}"
+                    sh "docker run --tty -p 5000:5000 ${env.registry}:${env.BUILD_NUMBER}"
                 }
             }
         }
@@ -51,12 +51,10 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Remove Unused docker image') {
+        stage('Remove unused docker image') {
             steps{
                 script{
-                    sh "docker container prune"
-                    sh "docker image prune -a"
-                    //sh "docker rmi ${env.registry}:${env.BUILD_NUMBER}"
+                    sh "docker rmi ${env.registry}:${env.BUILD_NUMBER}"
                 }
             }
         }
