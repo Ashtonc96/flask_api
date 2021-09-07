@@ -110,10 +110,9 @@ def update(lname, person):
 
     # If the person does not exist
     else:
-
-def delete(lname):
         abort(404, "Person with {lname} not found".format(lname=lname))
 
+def delete(lname):
     """
     This function deletes a person from the people structure
     :param lname:   last name of person to delete
@@ -123,11 +122,7 @@ def delete(lname):
     # If the person exists
     if lname in PEOPLE:
         del PEOPLE[lname]
-
-        return make_response(
-            "{lname} successfully deleted".format(lname=lname), 200
-        )
-
+        return make_response("{lname} successfully deleted".format(lname=lname), 200)
     # If person does not exist
     else:
         abort(404, "Person with {lname} does not exist".format(lname=lname))
