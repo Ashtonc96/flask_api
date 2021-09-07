@@ -1,0 +1,24 @@
+#docker-compose.yml
+
+version: "3.7"
+services:
+  db:
+    image: mysql:8.0.19
+    restart: always
+    environment:
+      - MYSQL_DATABASE=people_db
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - db-data:/var/lib/mysql
+
+  app:
+    build: app
+    restart: always
+    ports:
+      - '5000:5000'
+
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db/password.txt
