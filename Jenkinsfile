@@ -40,23 +40,5 @@ pipeline {
                 }
             }
         }
-        // Deploy the Docker image to DockerHub
-        // stage('Deploy Image') {
-        //     steps{
-        //         script {
-        //             docker.withRegistry( '', registryCredential ) {
-        //                 dockerImage.push()
-        //             }
-        //             echo "docker rmi ${env.registry}:${env.BUILD_NUMBER}"
-        //         }
-        //     }
-        // }
-        stage('Remove unused docker image') {
-            steps{
-                script{
-                    sh "docker rmi ${env.registry}:${env.BUILD_NUMBER}"
-                }
-            }
-        }
     }
 }
