@@ -1,4 +1,3 @@
-
 """
 This is the people module and supports all the ReST actions for the
 PEOPLE collection
@@ -46,23 +45,23 @@ def read_all():
 
 
 def read_one(lname):
-	"""
+    """
     This function responds to a request for /api/people/{lname}
     with one matching person from people
     :param lname:   last name of person to find
     :return:        person matching last name
     """
     # Does the person exist in people?
-	if lname in PEOPLE:
-		person = PEOPLE.get(lname)
+    if lname in PEOPLE:
+        person = PEOPLE.get(lname)
 
     # otherwise, nope, not found
-	else:
-		abort(
+    else:
+        abort(
             404, "Person with last name {lname} not found".format(lname=lname)
         )
-	
-	return person
+
+    return person
 
 
 def create(person):
@@ -92,44 +91,43 @@ def create(person):
             406,
             "Person with last name {lname} already exists".format(lname=lname),
         )
-        
+
+
 def update(lname, person):
-		"""
+    """
     This function updates an existing person in the people structure
     :param lname:   last name of person to update in the people structure
     :param person:  person to update
     :return:        updated person structure
     """
-    
+
     # If the person exists
-		if lname in PEOPLE:
-				PEOPLE[lname]['fname'] = person.get('fname')
-				PEOPLE[lname]['lname'] = person.get('lname')
-    		
-				return PEOPLE[lname]
-    		
+    if lname in PEOPLE:
+        PEOPLE[lname]['fname'] = person.get('fname')
+        PEOPLE[lname]['lname'] = person.get('lname')
+
+        return PEOPLE[lname]
+
     # If the person does not exist
-		else:
-				abort(404, "Person with {lname} not found".format(lname=lname))
-    		
+    else:
+
 def delete(lname):
-		"""
+        abort(404, "Person with {lname} not found".format(lname=lname))
+
+    """
     This function deletes a person from the people structure
     :param lname:   last name of person to delete
     :return:        200 on successful delete, 404 if not found
     """
-    
+
     # If the person exists
-		if lname in PEOPLE:
-				del PEOPLE[lname]
-    		
-				return make_response(
-						"{lname} successfully deleted".format(lname=lname), 200
-				)
-    
+    if lname in PEOPLE:
+        del PEOPLE[lname]
+
+        return make_response(
+            "{lname} successfully deleted".format(lname=lname), 200
+        )
+
     # If person does not exist
-		else:
-				abort(404, "Person with {lname} does not exist".format(lname=lname))
-    		
-		
-        
+    else:
+        abort(404, "Person with {lname} does not exist".format(lname=lname))

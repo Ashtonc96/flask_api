@@ -36,7 +36,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh "docker run --tty -p 5000:5000 ${env.registry}:${env.BUILD_NUMBER}"
+                    sh "docker run --tty -d -p 5000:5000 ${env.registry}:${env.BUILD_NUMBER}"
                 }
             }
         }

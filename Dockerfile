@@ -4,7 +4,7 @@ FROM ubuntu:latest
 RUN apt-get update && apt-get upgrade -y && apt-get install python3 -y && apt-get install python3-pip -y
 
 WORKDIR /app
-COPY . /app
+COPY app /app
 RUN pip3 --no-cache-dir install -r requirements.txt
 EXPOSE 5000
 
